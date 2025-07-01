@@ -6,5 +6,5 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/', function () {
-    return view('pages.home');
+    return view('admin.pages.dashboard');
 });
