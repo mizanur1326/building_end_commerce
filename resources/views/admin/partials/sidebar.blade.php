@@ -22,10 +22,10 @@
                     <span class="nav-label">Categories</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="">Add Categories</a>
+                        <a href="{{ route('addCategories') }}">Add Categories</a>
                     </li>                    
                     <li>
-                        <a href="">Show Categories</a>
+                        <a href="{{ route('showCategories') }}">Show Categories</a>
                     </li>
                 </ul>
             </li>
