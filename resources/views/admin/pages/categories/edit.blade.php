@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit">Update</button>
-                                    <a href="{{ route('showCategories') }}" class="btn btn-secondary">Cancel</a>
+                                    <a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
                                 </div>
                             </form>
                         </div>

@@ -34,10 +34,10 @@
                     <span class="nav-label">Products</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="">Add Products</a>
+                        <a href="{{ route('products.create') }}">Add Products</a>
                     </li>
                     <li>
-                        <a href="">Show Products</a>
+                        <a href="{{ route('products.index') }}">Show Products</a>
                     </li>
                 </ul>
             </li>
