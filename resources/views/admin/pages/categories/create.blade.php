@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="ibox-body">
-                            <form method="POST" action="{{ route('category.store') }}">
+                            <form method="POST" action="{{ route('categories.store') }}">
                                 @csrf
                                 <div class="form-group">
                                     <input class="form-control" type="text" name="name" placeholder="Category Name"

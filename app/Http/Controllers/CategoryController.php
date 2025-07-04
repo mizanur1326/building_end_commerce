@@ -10,50 +10,49 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('admin.pages.categories.show', compact('categories'));
+        return view('admin.pages.categories.index', compact('categories'));
     }
-    public function add()
+
+    public function create()
     {
-        return view('admin.pages.categories.add');
+        return view('admin.pages.categories.create');
     }
+
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    Category::create([
-        'name' => $request->name,
-    ]);
+        Category::create([
+            'name' => $request->name,
+        ]);
 
-    return redirect()->back()->with('success', 'Category added successfully!');
-}
+        return redirect()->route('categories.index')->with('success', 'Category added successfully!');
+    }
 
-public function edit($id)
-{
-    $category = Category::findOrFail($id);
-    return view('admin.pages.categories.edit', compact('category'));
-}
+    public function edit(Category $category)
+    {
+        return view('admin.pages.categories.edit', compact('category'));
+    }
 
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-    ]);
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    $category = Category::findOrFail($id);
-    $category->update(['name' => $request->name]);
+        $category->update([
+            'name' => $request->name,
+        ]);
 
-    return redirect()->route('showCategories')->with('success', 'Category updated successfully!');
-}
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+    }
 
-public function destroy($id)
-{
-    $category = Category::findOrFail($id);
-    $category->delete();
+    public function destroy(Category $category)
+    {
+        $category->delete();
 
-    return redirect()->route('showCategories')->with('success', 'Category deleted successfully!');
-}
-
-
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+    }
 }
