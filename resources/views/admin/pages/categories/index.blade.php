@@ -31,6 +31,11 @@
                             </div>
                         </div>
                         <div class="ibox-body">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             <div class="ibox">
                                 <div class="ibox-body">
                                     <div class="table-responsive">

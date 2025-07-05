@@ -31,6 +31,12 @@
                             </div>
                         </div>
                         <div class="ibox-body">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
                             <form method="POST" action="{{ route('categories.store') }}">
                                 @csrf
                                 <div class="form-group">

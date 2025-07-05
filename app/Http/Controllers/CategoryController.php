@@ -24,11 +24,13 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        Category::create([
+
+        $category = Category::create([
             'name' => $request->name,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Category added successfully!');
+        return redirect()->route('categories.create')->with('success', "Category '{$category->name}' added successfully!");
+
     }
 
     public function edit(Category $category)
@@ -46,13 +48,13 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+        return redirect()->route('categories.index')->with('success', "Category '{$category->name}' updated successfully!");
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+        return redirect()->route('categories.index')->with('success', "Category '{$category->name}' deleted successfully!");
     }
 }
