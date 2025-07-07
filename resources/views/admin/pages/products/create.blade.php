@@ -32,22 +32,25 @@
                             </div>
                         </div>
                         <div class="ibox-body">
-                            <form method="POST" action="{{ route('products.store') }}">
+                            <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
                                     <label for="name">Product Name</label>
-                                    <input class="form-control" type="text" name="name" required placeholder="Enter product name">
+                                    <input class="form-control" type="text" name="name" required
+                                        placeholder="Enter product name">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" rows="3" placeholder="Enter product description (optional)"></textarea>
+                                    <textarea class="form-control" name="description" rows="3"
+                                        placeholder="Enter product description (optional)"></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="price">Price (৳)</label>
-                                    <input class="form-control" type="number" step="0.01" name="price" required placeholder="Enter price">
+                                    <input class="form-control" type="number" step="0.01" name="price" required
+                                        placeholder="Enter price">
                                 </div>
 
                                 <div class="form-group">
@@ -60,6 +63,12 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="images">Product Images</label>
+                                    <input type="file" class="form-control-file" name="images[]" multiple accept="image/*">
+                                </div>
+
 
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit">Submit</button>

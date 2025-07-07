@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-     use HasFactory;
+    use HasFactory;
 
     // Fillable fields for mass assignment
     protected $fillable = [
@@ -20,7 +20,13 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class)->withDefault([
-        'name' => 'Uncategorized',
-    ]);
+            'name' => 'Uncategorized',
+        ]);
     }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
 }

@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+// use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -26,11 +30,41 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'category_id' => 'nullable|exists:categories,id',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        Product::create($request->all());
+        // Create product
+        $product = Product::create($request->only([
+            'name',
+            'description',
+            'price',
+            'category_id',
+        ]));
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully!');
+        // Handle each uploaded image
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = "products/{$filename}";
+
+                // Resize and encode the image
+                $image = Image::read($file)
+                    ->resize(800, null, fn($c) => $c->aspectRatio()->upsize())
+                    ->toJpeg(80);
+
+                // Store the image on the public disk
+                Storage::disk('public')->put($path, (string) $image);
+
+                // Save image record to DB
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => $path,
+                ]);
+            }
+        }
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product created successfully!');
     }
 
     public function edit(Product $product)
@@ -47,7 +81,12 @@ class ProductController extends Controller
             'category_id' => 'nullable|exists:categories,id',
         ]);
 
-        $product->update($request->all());
+        $product->update($request->only([
+            'name',
+            'description',
+            'price',
+            'category_id',
+        ]));
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully!');
     }
