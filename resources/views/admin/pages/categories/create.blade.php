@@ -37,12 +37,27 @@
                                 </div>
                             @endif
 
+                            <!-- @if ($errors->any())
+                                <div class="alert alert-danger" style="margin-bottom: 15px;">
+                                    <ul style="margin: 0; padding-left: 20px;">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif -->
+
                             <form method="POST" action="{{ route('categories.store') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="name" placeholder="Category Name"
-                                        required>
+                                    <input class="form-control" type="text" name="name" value="{{ old('name') }}"
+                                        placeholder="Category Name" required>
+
+                                    @error('name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
+
                                 <div class="form-group">
                                     <button class="btn btn-default" type="submit">Submit</button>
                                 </div>

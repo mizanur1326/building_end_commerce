@@ -20,17 +20,19 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
 
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+        ], [
+            'name.unique' => "The category '{$request->name}' has already been added.",
+            'name.required' => "The category '{$request->name}' has already been added.",
+        ]);
 
         $category = Category::create([
             'name' => $request->name,
         ]);
 
         return redirect()->route('categories.create')->with('success', "Category '{$category->name}' added successfully!");
-
     }
 
     public function edit(Category $category)
@@ -38,10 +40,14 @@ class CategoryController extends Controller
         return view('admin.pages.categories.edit', compact('category'));
     }
 
+
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+        ], [
+            'name.unique' => "The category '{$request->name}' has already been added.",
+            'name.required' => "The category '{$request->name}' has already been added.",
         ]);
 
         $category->update([

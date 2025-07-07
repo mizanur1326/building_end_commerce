@@ -35,8 +35,12 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="name" value="{{ $category->name }}"
-                                        required placeholder="Category Name">
+                                    <input class="form-control" type="text" name="name"
+                                        value="{{ old('name', $category->name) }}" required placeholder="Category Name">
+
+                                    @error('name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit">Update</button>
