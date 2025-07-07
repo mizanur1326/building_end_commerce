@@ -12,7 +12,7 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('products.index') }}"><i class="la la-home font-20"></i></a>
                 </li>
-                <li class="breadcrumb-item">Edit Product</li>
+                <li class="breadcrumb-item">Product Edit</li>
             </ol>
         </div>
 
@@ -33,26 +33,27 @@
                         </div>
 
                         <div class="ibox-body">
-                            <form method="POST" action="{{ route('products.update', $product->id) }}">
+                            <form method="POST"
+                                  action="{{ route('products.update', $product->id) }}"
+                                  enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
                                 <div class="form-group">
                                     <label for="name">Product Name</label>
-                                    <input class="form-control" type="text" name="name" value="{{ $product->name }}"
-                                           required placeholder="Enter product name">
+                                    <input class="form-control" type="text" name="name"
+                                           value="{{ $product->name }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" rows="3"
-                                              placeholder="Enter product description (optional)">{{ $product->description }}</textarea>
+                                    <textarea class="form-control" name="description" rows="3">{{ $product->description }}</textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="price">Price (৳)</label>
                                     <input class="form-control" type="number" step="0.01" name="price"
-                                           value="{{ $product->price }}" required placeholder="Enter price">
+                                           value="{{ $product->price }}" required>
                                 </div>
 
                                 <div class="form-group">
@@ -67,6 +68,24 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Existing Images</label><br>
+                                    @forelse ($product->images as $img)
+                                        <div style="display:inline-block; margin:5px;">
+                                            <img src="{{ asset('storage/' . $img->image) }}"
+                                                 style="width: 80px; border-radius: 4px; border: 1px solid #ccc;">
+                                        </div>
+                                    @empty
+                                        <p>No images uploaded.</p>
+                                    @endforelse
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="images">Add New Images</label>
+                                    <input type="file" class="form-control-file" name="images[]" multiple accept="image/*">
+                                    <small class="form-text text-muted">You can upload new images; old ones will remain.</small>
                                 </div>
 
                                 <div class="form-group">
@@ -86,13 +105,14 @@
         @include('admin.partials.footer')
 
     </div>
+
     @include('admin.partials.configPanel')
 
-    <!-- BEGIN PAGE BACKDROPS-->
+    <!-- BEGIN PAGA BACKDROPS-->
     <div class="sidenav-backdrop backdrop"></div>
     <div class="preloader-backdrop">
         <div class="page-preloader">Loading</div>
     </div>
-    <!-- END PAGE BACKDROPS-->
+    <!-- END PAGA BACKDROPS-->
 
 @endsection

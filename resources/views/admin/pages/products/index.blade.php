@@ -43,6 +43,7 @@
                                                     <th>Product</th>
                                                     <th>Category</th>
                                                     <th>Price (৳)</th>
+                                                    <th>Photo</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
@@ -61,19 +62,28 @@
                                                         <td>{{ number_format($product->price, 2) }}</td>
 
                                                         <td>
+                                                            @if ($product->images->first())                                                               
+                                                                <img src="{{ asset('storage/' . $product->images->first()->image) }}"
+                                                                    alt="Image"
+                                                                    style="width: 80px; height : 80px; margin-top: 5px; border-radius: 5px;">
+                                                            @endif
+                                                        </td>
+
+
+                                                        <td>
                                                             <a href="{{ route('products.edit', $product->id) }}"
-                                                               class="btn btn-default btn-xs m-r-5"
-                                                               data-toggle="tooltip" title="Edit">
+                                                                class="btn btn-default btn-xs m-r-5" data-toggle="tooltip"
+                                                                title="Edit">
                                                                 <i class="fa fa-pencil font-14"></i>
                                                             </a>
 
                                                             <form action="{{ route('products.destroy', $product->id) }}"
-                                                                  method="POST" style="display:inline;"
-                                                                  onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                                                method="POST" style="display:inline;"
+                                                                onsubmit="return confirm('Are you sure you want to delete this product?');">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-default btn-xs"
-                                                                        data-toggle="tooltip" title="Delete">
+                                                                    data-toggle="tooltip" title="Delete">
                                                                     <i class="fa fa-trash font-14"></i>
                                                                 </button>
                                                             </form>

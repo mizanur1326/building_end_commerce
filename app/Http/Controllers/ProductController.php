@@ -74,22 +74,49 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, Product $product)
-    {
-        $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'category_id' => 'nullable|exists:categories,id',
-        ]);
+{
+    $request->validate([
+        'name' => 'required',
+        'price' => 'required|numeric',
+        'category_id' => 'nullable|exists:categories,id',
+        'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+    ]);
 
-        $product->update($request->only([
-            'name',
-            'description',
-            'price',
-            'category_id',
-        ]));
+    $product->update($request->only([
+        'name',
+        'description',
+        'price',
+        'category_id',
+    ]));
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully!');
+    // If new images are uploaded, remove old ones
+    if ($request->hasFile('images')) {
+        // Delete old image files and DB entries
+        foreach ($product->images as $img) {
+            Storage::disk('public')->delete($img->image); // delete file from disk
+            $img->delete(); // delete record from DB
+        }
+
+        // Upload and save new images
+        foreach ($request->file('images') as $file) {
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $path = "products/{$filename}";
+
+            $image = Image::read($file)
+                ->resize(800, null, fn ($c) => $c->aspectRatio()->upsize())
+                ->toJpeg(80);
+
+            Storage::disk('public')->put($path, (string) $image);
+
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image'      => $path,
+            ]);
+        }
     }
+
+    return redirect()->route('products.index')->with('success', 'Product updated successfully!');
+}
 
     public function destroy(Product $product)
     {
