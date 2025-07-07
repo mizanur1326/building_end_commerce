@@ -18,7 +18,7 @@
 
         <div class="page-content fade-in-up">
             <div class="row" style="display: flex; justify-content: center;">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="ibox">
                         <div class="ibox-head">
                             <div class="ibox-title">Show Products</div>
@@ -48,27 +48,28 @@
                                                     <th>Product</th>
                                                     <th>Category</th>
                                                     <th>Price (৳)</th>
-                                                    <th>Photo</th>
+                                                    <th class="text-center">Photo</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @forelse ($products as $product)
                                                     <tr>
-                                                        <td>
+                                                        <td style="vertical-align: middle; text-align: center;">
                                                             <label class="ui-checkbox">
                                                                 <input type="checkbox">
                                                                 <span class="input-span"></span>
                                                             </label>
                                                         </td>
 
-                                                        <td>{{ $product->name }}</td>
-                                                        <td>{{ $product->category->name ?? '—' }}</td>
-                                                        <td>{{ number_format($product->price, 2) }}</td>
+                                                        <td style="vertical-align: middle; text-align: center;">{{ $product->name }}</td>
+                                                        <td style="vertical-align: middle; text-align: center;">{{ $product->category->name ?? '—' }}</td>
+                                                        <td style="vertical-align: middle; text-align: center;">{{ number_format($product->price, 2) }}</td>
 
-                                                        <td>
+                                                        <td style="vertical-align: middle; text-align: center;">
                                                             @if ($product->images->isNotEmpty())
-                                                                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                                                                <div
+                                                                    style="display: inline-flex; gap: 5px; flex-wrap: wrap; justify-content: center; align-items: center;">
                                                                     @foreach ($product->images as $image)
                                                                         <img src="{{ asset('storage/' . $image->image) }}" alt="Image"
                                                                             style="width: 80px; height: 80px; border-radius: 5px; object-fit: cover;">
@@ -79,7 +80,8 @@
 
 
 
-                                                        <td>
+
+                                                        <td style="vertical-align: middle; text-align: center;">
                                                             <a href="{{ route('products.edit', $product->id) }}"
                                                                 class="btn btn-default btn-xs m-r-5" data-toggle="tooltip"
                                                                 title="Edit">
