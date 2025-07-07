@@ -33,6 +33,11 @@
                         </div>
 
                         <div class="ibox-body">
+                            @if(session('success'))
+                                <div class="alert alert-success" role="alert" style="margin: 15px 0;">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             <div class="ibox">
                                 <div class="ibox-body">
                                     <div class="table-responsive">
@@ -62,12 +67,16 @@
                                                         <td>{{ number_format($product->price, 2) }}</td>
 
                                                         <td>
-                                                            @if ($product->images->first())                                                               
-                                                                <img src="{{ asset('storage/' . $product->images->first()->image) }}"
-                                                                    alt="Image"
-                                                                    style="width: 80px; height : 80px; margin-top: 5px; border-radius: 5px;">
+                                                            @if ($product->images->isNotEmpty())
+                                                                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                                                                    @foreach ($product->images as $image)
+                                                                        <img src="{{ asset('storage/' . $image->image) }}" alt="Image"
+                                                                            style="width: 80px; height: 80px; border-radius: 5px; object-fit: cover;">
+                                                                    @endforeach
+                                                                </div>
                                                             @endif
                                                         </td>
+
 
 
                                                         <td>

@@ -30,7 +30,9 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'category_id' => 'nullable|exists:categories,id',
+            'images' => 'nullable|array|max:4', // max 4 files allowed
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+
         ]);
 
         // Create product
@@ -74,49 +76,51 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, Product $product)
-{
-    $request->validate([
-        'name' => 'required',
-        'price' => 'required|numeric',
-        'category_id' => 'nullable|exists:categories,id',
-        'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'category_id' => 'nullable|exists:categories,id',
+            'images' => 'nullable|array|max:4',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
 
-    $product->update($request->only([
-        'name',
-        'description',
-        'price',
-        'category_id',
-    ]));
+        ]);
 
-    // If new images are uploaded, remove old ones
-    if ($request->hasFile('images')) {
-        // Delete old image files and DB entries
-        foreach ($product->images as $img) {
-            Storage::disk('public')->delete($img->image); // delete file from disk
-            $img->delete(); // delete record from DB
+        // Count existing images after possible deletions
+        $existingCount = $product->images()->count();
+        $newImagesCount = $request->hasFile('images') ? count($request->file('images')) : 0;
+
+        if ($existingCount + $newImagesCount > 4) {
+            return back()->withErrors(['images' => 'Total images (old + new) cannot exceed 4.'])->withInput();
         }
 
-        // Upload and save new images
-        foreach ($request->file('images') as $file) {
-            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $path = "products/{$filename}";
+        $product->update($request->only([
+            'name',
+            'description',
+            'price',
+            'category_id',
+        ]));
 
-            $image = Image::read($file)
-                ->resize(800, null, fn ($c) => $c->aspectRatio()->upsize())
-                ->toJpeg(80);
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = "products/{$filename}";
 
-            Storage::disk('public')->put($path, (string) $image);
+                $image = Image::read($file)
+                    ->resize(800, null, fn($c) => $c->aspectRatio()->upsize())
+                    ->toJpeg(80);
 
-            ProductImage::create([
-                'product_id' => $product->id,
-                'image'      => $path,
-            ]);
+                Storage::disk('public')->put($path, (string) $image);
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => $path,
+                ]);
+            }
         }
+
+        return redirect()->route('products.index')->with('success', "Product Name = '{$product->name}' updated successfully!");
     }
-
-    return redirect()->route('products.index')->with('success', 'Product updated successfully!');
-}
 
     public function destroy(Product $product)
     {

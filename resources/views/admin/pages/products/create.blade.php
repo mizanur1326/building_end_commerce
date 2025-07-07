@@ -64,10 +64,19 @@
                                     </select>
                                 </div>
 
+                                <!-- <div class="form-group">
+                                        <label for="images">Product Images</label>
+                                        <input type="file" class="form-control-file" name="images[]" multiple accept="image/*">
+                                    </div> -->
+
+
                                 <div class="form-group">
                                     <label for="images">Product Images</label>
-                                    <input type="file" class="form-control-file" name="images[]" multiple accept="image/*">
+                                    <input type="file" class="form-control-file" name="images[]" multiple accept="image/*"
+                                        onchange="if(this.files.length > 4){ alert('You can upload max 4 images'); this.value=''; }">
+
                                 </div>
+
 
 
                                 <div class="form-group">

@@ -19,7 +19,9 @@
         <div class="page-content fade-in-up">
             <div class="row" style="display: flex; justify-content: center;">
                 <div class="col-md-6">
+
                     <div class="ibox">
+
                         <div class="ibox-head">
                             <div class="ibox-title">Edit Product Form</div>
                             <div class="ibox-tools">
@@ -33,53 +35,102 @@
                         </div>
 
                         <div class="ibox-body">
+
+                            @if(session('success'))
+                                <div class="alert alert-success" role="alert" style="margin-bottom: 15px;">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if(session('error'))
+                                <div class="alert alert-danger" role="alert" style="margin-bottom: 15px;">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
+
+                            <!-- Existing Images with Delete Buttons - OUTSIDE the update form -->
+                            <div class="form-group">
+                                <label>Existing Images</label>
+                                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                    @foreach ($product->images as $img)
+                                        <div style="position: relative; width: 100px; height: 100px; border: 1px solid #ddd; border-radius: 5px; overflow: hidden;">
+                                            <img src="{{ asset('storage/' . $img->image) }}" alt="Product Image"
+                                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px; display: block;">
+
+                                            <form method="POST" action="{{ route('product-images.destroy', $img->id) }}"
+                                                style="position: absolute; top: 5px; right: 5px; margin: 0; padding: 0;"
+                                                onsubmit="return confirm('Are you sure you want to delete this image?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" style="
+                                                    background: rgba(255, 0, 0, 0.8);
+                                                    border: none;
+                                                    color: white;
+                                                    font-weight: bold;
+                                                    border-radius: 50%;
+                                                    width: 22px;
+                                                    height: 22px;
+                                                    line-height: 20px;
+                                                    cursor: pointer;
+                                                    padding: 0;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    " title="Delete Image">&times;</button>
+                                            </form>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <!-- Main product update form STARTS HERE -->
                             <form method="POST"
-                                  action="{{ route('products.update', $product->id) }}"
-                                  enctype="multipart/form-data">
+                                action="{{ route('products.update', $product->id) }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+
+                                {{-- Validation errors --}}
+                                @if ($errors->any())
+                                    <div class="alert alert-danger" role="alert" style="margin-bottom: 15px;">
+                                        <ul style="margin: 0; padding-left: 20px;">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
                                 <div class="form-group">
                                     <label for="name">Product Name</label>
                                     <input class="form-control" type="text" name="name"
-                                           value="{{ $product->name }}" required>
+                                        value="{{ old('name', $product->name) }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" rows="3">{{ $product->description }}</textarea>
+                                    <textarea class="form-control" name="description" rows="3">{{ old('description', $product->description) }}</textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="price">Price (৳)</label>
                                     <input class="form-control" type="number" step="0.01" name="price"
-                                           value="{{ $product->price }}" required>
+                                        value="{{ old('price', $product->price) }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="category_id">Category</label>
                                     <select class="form-control" name="category_id">
-                                        <option value="" disabled>Select a category</option>
-                                        <option value="">Uncategorized</option>
+                                        <option value="" disabled {{ old('category_id', $product->category_id) === null ? 'selected' : '' }}>Select a category</option>
+                                        <option value="" {{ old('category_id', $product->category_id) === null ? 'selected' : '' }}>Uncategorized</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
-                                                {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                                                {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
                                                 {{ $category->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Existing Images</label><br>
-                                    @forelse ($product->images as $img)
-                                        <div style="display:inline-block; margin:5px;">
-                                            <img src="{{ asset('storage/' . $img->image) }}"
-                                                 style="width: 80px; border-radius: 4px; border: 1px solid #ccc;">
-                                        </div>
-                                    @empty
-                                        <p>No images uploaded.</p>
-                                    @endforelse
                                 </div>
 
                                 <div class="form-group">
@@ -94,6 +145,8 @@
                                 </div>
 
                             </form>
+                            <!-- Main form ends -->
+
                         </div>
 
                     </div>
