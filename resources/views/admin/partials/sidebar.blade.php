@@ -23,12 +23,25 @@
                 <ul class="nav-2-level collapse">
                     <li>
                         <a href="{{ route('categories.create') }}">Add Categories</a>
-                    </li>                    
+                    </li>
                     <li>
                         <a href="{{ route('categories.index') }}">Show Categories</a>
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-briefcase"></i>
+                    <span class="nav-label">Brands</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="{{ route('brands.create') }}">Add Brand</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('brands.index') }}">Show Brands</a>
+                    </li>
+                </ul>
+            </li>
+
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                     <span class="nav-label">Products</span><i class="fa fa-angle-left arrow"></i></a>

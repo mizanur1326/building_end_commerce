@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -20,7 +21,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.pages.products.create', compact('categories'));
+        $brands = Brand::all();
+        return view('admin.pages.products.create', compact('categories', 'brands'));
     }
 
     public function store(Request $request)
@@ -32,6 +34,7 @@ class ProductController extends Controller
             'discount_percentage' => 'nullable|numeric|min:0|max:100',
             // 'discount_price' => 'nullable|numeric|min:0', // no longer needed
             'category_id' => 'nullable|exists:categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
             'stock_quantity' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive',
             'discount_start_date' => 'nullable|date',

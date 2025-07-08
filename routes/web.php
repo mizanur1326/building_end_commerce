@@ -1,6 +1,8 @@
 <?php
 
 // namespace App\Http\Controllers;
+
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -24,6 +26,7 @@ Route::resource('products', ProductController::class);
 Route::delete('/product-images/{image}', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
 
 
+Route::resource('brands', BrandController::class);
 
 
 

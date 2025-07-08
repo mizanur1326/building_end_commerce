@@ -47,6 +47,7 @@
                                                     <th style="vertical-align: middle;" width="50px">Checkbox</th>
                                                     <th style="vertical-align: middle;">Product</th>
                                                     <th style="vertical-align: middle;">Category</th>
+                                                    <th style="vertical-align: middle;">Brand</th>
                                                     <th style="vertical-align: middle;">Price (৳)</th>
                                                     <th style="vertical-align: middle;">Discount %</th>
                                                     <th style="vertical-align: middle;">Discount Price (৳)</th>
@@ -69,11 +70,17 @@
                                                         </td>
 
                                                         <td style="vertical-align: middle; text-align: center;">
-                                                            {{ $product->name }}</td>
+                                                            {{ $product->name }}
+                                                        </td>
 
                                                         <td style="vertical-align: middle; text-align: center;">
                                                             {{ $product->category->name ?? '—' }}
                                                         </td>
+
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ $product->brand->name ?? '—' }}
+                                                        </td>
+
 
                                                         <td style="vertical-align: middle; text-align: center;">
                                                             {{ number_format($product->regular_price, 2) }}
