@@ -42,11 +42,13 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th width="50px"></th>
-                                                    <th>Categories</th>
-                                                    <th>Actions</th>
+                                                    <th style="vertical-align: middle;" width="50px">Checkbox</th>
+                                                    <th style="vertical-align: middle;">Category Name</th>
+                                                    <th style="vertical-align: middle;">Parent</th>
+                                                    <th style="vertical-align: middle;">Actions</th>
                                                 </tr>
                                             </thead>
+
                                             <tbody>
                                                 @forelse($categories as $category)
                                                     <tr>
@@ -57,6 +59,14 @@
                                                             </label>
                                                         </td>
                                                         <td>{{ $category->name }}</td>
+                                                        <td>
+                                                            @if ($category->parent)
+                                                                {{ $category->parent->name }}
+                                                            @else
+                                                                <span class="badge badge-primary">Main</span>
+                                                            @endif
+                                                        </td>
+
                                                         <td>
                                                             <a href="{{ route('categories.edit', $category->id) }}"
                                                                 class="btn btn-default btn-xs m-r-5" data-toggle="tooltip"

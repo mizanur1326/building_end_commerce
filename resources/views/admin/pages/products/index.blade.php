@@ -44,18 +44,18 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th width="50px"></th>
-                                                    <th>Product</th>
-                                                    <th>Category</th>
-                                                    <th>Price (৳)</th>
-                                                    <th>Discount %</th> {{-- new --}}
-                                                    <th>Discount Price (৳)</th>
-                                                    <th>Discount Start Date</th> {{-- new --}}
-                                                    <th>Discount End Date</th> {{-- new --}}
-                                                    <th>Stock Quantity</th>
-                                                    <th>Status</th>
-                                                    <th class="text-center">Photo</th>
-                                                    <th>Actions</th>
+                                                    <th style="vertical-align: middle;" width="50px">Checkbox</th>
+                                                    <th style="vertical-align: middle;">Product</th>
+                                                    <th style="vertical-align: middle;">Category</th>
+                                                    <th style="vertical-align: middle;">Price (৳)</th>
+                                                    <th style="vertical-align: middle;">Discount %</th>
+                                                    <th style="vertical-align: middle;">Discount Price (৳)</th>
+                                                    <th style="vertical-align: middle;">Discount Start Date</th>
+                                                    <th style="vertical-align: middle;">Discount End Date</th>
+                                                    <th style="vertical-align: middle;">Stock Quantity</th>
+                                                    <th style="vertical-align: middle;">Status</th>
+                                                    <th style="vertical-align: middle;">Photo</th>
+                                                    <th style="vertical-align: middle;">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
