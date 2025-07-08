@@ -7,7 +7,6 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-// use Intervention\Image\Facades\Image;
 use Intervention\Image\Laravel\Facades\Image;
 
 class ProductController extends Controller
@@ -27,37 +26,37 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
             'category_id' => 'nullable|exists:categories,id',
-            'images' => 'nullable|array|max:4', // max 4 files allowed
+            'stock_quantity' => 'required|integer|min:0',
+            'status' => 'required|in:active,inactive',
+            'discount_price' => 'nullable|numeric|min:0',
+            'images' => 'nullable|array|max:4',
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
-
         ]);
 
-        // Create product
         $product = Product::create($request->only([
             'name',
             'description',
             'price',
             'category_id',
+            'stock_quantity',
+            'status',
+            'discount_price',
         ]));
 
-        // Handle each uploaded image
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $path = "products/{$filename}";
 
-                // Resize and encode the image
                 $image = Image::read($file)
                     ->resize(800, null, fn($c) => $c->aspectRatio()->upsize())
                     ->toJpeg(80);
 
-                // Store the image on the public disk
                 Storage::disk('public')->put($path, (string) $image);
 
-                // Save image record to DB
                 ProductImage::create([
                     'product_id' => $product->id,
                     'image' => $path,
@@ -78,15 +77,16 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
             'category_id' => 'nullable|exists:categories,id',
+            'stock_quantity' => 'required|integer|min:0',
+            'status' => 'required|in:active,inactive',
+            'discount_price' => 'nullable|numeric|min:0',
             'images' => 'nullable|array|max:4',
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
-
         ]);
 
-        // Count existing images after possible deletions
         $existingCount = $product->images()->count();
         $newImagesCount = $request->hasFile('images') ? count($request->file('images')) : 0;
 
@@ -99,6 +99,9 @@ class ProductController extends Controller
             'description',
             'price',
             'category_id',
+            'stock_quantity',
+            'status',
+            'discount_price',
         ]));
 
         if ($request->hasFile('images')) {
@@ -119,12 +122,15 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('products.index')->with('success', "Product Name = '{$product->name}' updated successfully!");
+        return redirect()->route('products.index')
+            ->with('success', "Product '{$product->name}' updated successfully!");
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product deleted successfully!');
     }
 }

@@ -31,9 +31,34 @@
                             </div>
                         </div>
                         <div class="ibox-body">
+
                             <form method="POST" action="{{ route('categories.update', $category->id) }}">
                                 @csrf
                                 @method('PUT')
+
+                                @php
+                                    function renderCategoryOptions($categories, $prefix = '', $selected = null)
+                                    {
+                                        foreach ($categories as $categoryOption) {
+                                            $isSelected = old('parent_id', $selected) == $categoryOption->id ? 'selected' : '';
+                                            echo "<option value='{$categoryOption->id}' {$isSelected}>{$prefix}{$categoryOption->name}</option>";
+
+                                            if ($categoryOption->children && $categoryOption->children->count()) {
+                                                renderCategoryOptions($categoryOption->children, $prefix . '-- ', $selected);
+                                            }
+                                        }
+                                    }
+                                @endphp
+
+                                <div class="form-group">
+                                    <label for="parent_id">Parent Category (Optional)</label>
+                                    <select name="parent_id" id="parent_id" class="form-control">
+                                        <option value="">-- No Parent (Root Category) --</option>
+                                        @php renderCategoryOptions($categories, '', $category->parent_id); @endphp
+                                    </select>
+                                </div>
+
+
                                 <div class="form-group">
                                     <input class="form-control" type="text" name="name"
                                         value="{{ old('name', $category->name) }}" required placeholder="Category Name">
@@ -42,11 +67,13 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+
                                 <div class="form-group">
                                     <button class="btn btn-primary" type="submit">Update</button>
                                     <a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>

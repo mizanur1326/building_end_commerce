@@ -37,18 +37,34 @@
                                 </div>
                             @endif
 
-                            <!-- @if ($errors->any())
-                                <div class="alert alert-danger" style="margin-bottom: 15px;">
-                                    <ul style="margin: 0; padding-left: 20px;">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif -->
+                            @php
+                                function renderCategoryOptions($categories, $prefix = '', $selected = null)
+                                {
+                                    foreach ($categories as $category) {
+                                        $isSelected = old('parent_id', $selected) == $category->id ? 'selected' : '';
+                                        echo "<option value='{$category->id}' {$isSelected}>{$prefix}{$category->name}</option>";
+
+                                        if ($category->children && $category->children->count() > 0) {
+                                            renderCategoryOptions($category->children, $prefix . '-- ', $selected);
+                                        }
+                                    }
+                                }
+                            @endphp
+
+
 
                             <form method="POST" action="{{ route('categories.store') }}">
                                 @csrf
+
+                                <div class="form-group">
+                                    <label for="parent_id">Parent Category (Optional)</label>
+                                    <select name="parent_id" id="parent_id" class="form-control">
+                                        <option value="">-- No Parent (Root Category) --</option>
+                                        @php renderCategoryOptions($categories); @endphp
+                                    </select>
+                                </div>
+
+
                                 <div class="form-group">
                                     <input class="form-control" type="text" name="name" value="{{ old('name') }}"
                                         placeholder="Category Name" required>
@@ -62,6 +78,7 @@
                                     <button class="btn btn-default" type="submit">Submit</button>
                                 </div>
                             </form>
+
                         </div>
 
                     </div>

@@ -48,6 +48,9 @@
                                                     <th>Product</th>
                                                     <th>Category</th>
                                                     <th>Price (৳)</th>
+                                                    <th>Discount Price (৳)</th> <!-- New -->
+                                                    <th>Stock Quantity</th> <!-- New -->
+                                                    <th>Status</th> <!-- New -->
                                                     <th class="text-center">Photo</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -62,9 +65,24 @@
                                                             </label>
                                                         </td>
 
-                                                        <td style="vertical-align: middle; text-align: center;">{{ $product->name }}</td>
-                                                        <td style="vertical-align: middle; text-align: center;">{{ $product->category->name ?? '—' }}</td>
-                                                        <td style="vertical-align: middle; text-align: center;">{{ number_format($product->price, 2) }}</td>
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ $product->name }}</td>
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ $product->category->name ?? '—' }}</td>
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ number_format($product->price, 2) }}</td>
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ $product->discount_price ? number_format($product->discount_price, 2) : '—' }}
+                                                        </td>
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ $product->stock_quantity }}</td>
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            @if($product->status === 'active')
+                                                                <span class="badge badge-success">Active</span>
+                                                            @else
+                                                                <span class="badge badge-secondary">Inactive</span>
+                                                            @endif
+                                                        </td>
 
                                                         <td style="vertical-align: middle; text-align: center;">
                                                             @if ($product->images->isNotEmpty())
@@ -77,9 +95,6 @@
                                                                 </div>
                                                             @endif
                                                         </td>
-
-
-
 
                                                         <td style="vertical-align: middle; text-align: center;">
                                                             <a href="{{ route('products.edit', $product->id) }}"
@@ -102,10 +117,11 @@
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="5">No products found.</td>
+                                                        <td colspan="9">No products found.</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
+
                                         </table>
                                     </div>
                                 </div>

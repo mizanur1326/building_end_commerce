@@ -64,10 +64,36 @@
                                     </select>
                                 </div>
 
+                                {{-- Stock Quantity --}}
+                                <div class="form-group">
+                                    <label for="stock_quantity">Stock Quantity</label>
+                                    <input type="number" name="stock_quantity" id="stock_quantity" class="form-control"
+                                        value="{{ old('stock_quantity', 0) }}" min="0">
+                                </div>
+
+                                {{-- Status --}}
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active
+                                        </option>
+                                        <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive
+                                        </option>
+                                    </select>
+                                </div>
+
+                                {{-- Discount Price --}}
+                                <div class="form-group">
+                                    <label for="discount_price">Discount Price (optional)</label>
+                                    <input type="number" step="0.01" name="discount_price" id="discount_price"
+                                        class="form-control" value="{{ old('discount_price') }}">
+                                </div>
+
+
                                 <!-- <div class="form-group">
-                                        <label for="images">Product Images</label>
-                                        <input type="file" class="form-control-file" name="images[]" multiple accept="image/*">
-                                    </div> -->
+                                            <label for="images">Product Images</label>
+                                            <input type="file" class="form-control-file" name="images[]" multiple accept="image/*">
+                                        </div> -->
 
 
                                 <div class="form-group">

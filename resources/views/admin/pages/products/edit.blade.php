@@ -49,7 +49,7 @@
                             @endif
 
 
-                            <!-- Existing Images with Delete Buttons - OUTSIDE the update form -->
+                            <!-- Existing Images with Delete Buttons -->
                             <div class="form-group">
                                 <label>Existing Images</label>
                                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -118,6 +118,28 @@
                                     <input class="form-control" type="number" step="0.01" name="price"
                                         value="{{ old('price', $product->price) }}" required>
                                 </div>
+
+                                <!-- New Fields Added Here -->
+                                <div class="form-group">
+                                    <label for="discount_price">Discount Price (৳)</label>
+                                    <input class="form-control" type="number" step="0.01" name="discount_price"
+                                        value="{{ old('discount_price', $product->discount_price) }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="stock_quantity">Stock Quantity</label>
+                                    <input class="form-control" type="number" min="0" name="stock_quantity"
+                                        value="{{ old('stock_quantity', $product->stock_quantity) }}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" name="status" required>
+                                        <option value="active" {{ old('status', $product->status) === 'active' ? 'selected' : '' }}>Active</option>
+                                        <option value="inactive" {{ old('status', $product->status) === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
+                                <!-- End New Fields -->
 
                                 <div class="form-group">
                                     <label for="category_id">Category</label>
