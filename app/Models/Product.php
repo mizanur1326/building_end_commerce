@@ -9,16 +9,19 @@ class Product extends Model
 {
     use HasFactory;
 
-    // Fillable fields for mass assignment
     protected $fillable = [
         'name',
         'description',
-        'price',
+        'regular_price',
+        'discount_percentage',
+        'discount_price',
         'category_id',
         'stock_quantity',
         'status',
-        'discount_price',
+        'discount_start_date',
+        'discount_end_date',
     ];
+
 
     public function category()
     {

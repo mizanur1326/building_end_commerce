@@ -48,9 +48,12 @@
                                                     <th>Product</th>
                                                     <th>Category</th>
                                                     <th>Price (৳)</th>
-                                                    <th>Discount Price (৳)</th> <!-- New -->
-                                                    <th>Stock Quantity</th> <!-- New -->
-                                                    <th>Status</th> <!-- New -->
+                                                    <th>Discount %</th> {{-- new --}}
+                                                    <th>Discount Price (৳)</th>
+                                                    <th>Discount Start Date</th> {{-- new --}}
+                                                    <th>Discount End Date</th> {{-- new --}}
+                                                    <th>Stock Quantity</th>
+                                                    <th>Status</th>
                                                     <th class="text-center">Photo</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -67,15 +70,35 @@
 
                                                         <td style="vertical-align: middle; text-align: center;">
                                                             {{ $product->name }}</td>
+
                                                         <td style="vertical-align: middle; text-align: center;">
-                                                            {{ $product->category->name ?? '—' }}</td>
+                                                            {{ $product->category->name ?? '—' }}
+                                                        </td>
+
                                                         <td style="vertical-align: middle; text-align: center;">
-                                                            {{ number_format($product->price, 2) }}</td>
+                                                            {{ number_format($product->regular_price, 2) }}
+                                                        </td>
+
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ $product->discount_percentage !== null ? number_format($product->discount_percentage, 2) . '%' : '—' }}
+                                                        </td>
+
                                                         <td style="vertical-align: middle; text-align: center;">
                                                             {{ $product->discount_price ? number_format($product->discount_price, 2) : '—' }}
                                                         </td>
+
                                                         <td style="vertical-align: middle; text-align: center;">
-                                                            {{ $product->stock_quantity }}</td>
+                                                            {{ $product->discount_start_date ?? '—' }}
+                                                        </td>
+
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ $product->discount_end_date ?? '—' }}
+                                                        </td>
+
+                                                        <td style="vertical-align: middle; text-align: center;">
+                                                            {{ $product->stock_quantity }}
+                                                        </td>
+
                                                         <td style="vertical-align: middle; text-align: center;">
                                                             @if($product->status === 'active')
                                                                 <span class="badge badge-success">Active</span>
@@ -117,10 +140,11 @@
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="9">No products found.</td>
+                                                        <td colspan="12">No products found.</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
+
 
                                         </table>
                                     </div>

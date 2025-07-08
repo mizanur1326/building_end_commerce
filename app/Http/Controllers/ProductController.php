@@ -25,26 +25,43 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
+            'regular_price' => 'required|numeric|min:0',
+            'discount_percentage' => 'nullable|numeric|min:0|max:100',
+            // 'discount_price' => 'nullable|numeric|min:0', // no longer needed
             'category_id' => 'nullable|exists:categories,id',
             'stock_quantity' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive',
-            'discount_price' => 'nullable|numeric|min:0',
+            'discount_start_date' => 'nullable|date',
+            'discount_end_date' => 'nullable|date|after_or_equal:discount_start_date',
             'images' => 'nullable|array|max:4',
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $product = Product::create($request->only([
-            'name',
-            'description',
-            'price',
-            'category_id',
-            'stock_quantity',
-            'status',
-            'discount_price',
-        ]));
+        // Calculate discount price automatically
+        $discountPrice = null;
+        if (!empty($validated['discount_percentage'])) {
+            $discountAmount = ($validated['regular_price'] * $validated['discount_percentage']) / 100;
+            $discountPrice = round($validated['regular_price'] - $discountAmount, 2);
+        }
+
+        // Handle 'null' string for category_id dropdown (Uncategorized)
+        $validated['category_id'] = $request->category_id === 'null' ? null : $validated['category_id'];
+
+        $product = Product::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'regular_price' => $validated['regular_price'],
+            'discount_percentage' => $validated['discount_percentage'] ?? null,
+            'discount_price' => $discountPrice,
+            'category_id' => $validated['category_id'],
+            'stock_quantity' => $validated['stock_quantity'],
+            'status' => $validated['status'],
+            'discount_start_date' => $validated['discount_start_date'] ?? null,
+            'discount_end_date' => $validated['discount_end_date'] ?? null,
+        ]);
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
@@ -76,16 +93,30 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
+            'regular_price' => 'required|numeric|min:0',
+            'discount_percentage' => 'nullable|numeric|min:0|max:100',
+            // 'discount_price' => 'nullable|numeric|min:0', // no longer needed
             'category_id' => 'nullable|exists:categories,id',
             'stock_quantity' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive',
-            'discount_price' => 'nullable|numeric|min:0',
+            'discount_start_date' => 'nullable|date',
+            'discount_end_date' => 'nullable|date|after_or_equal:discount_start_date',
             'images' => 'nullable|array|max:4',
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
+
+        // Calculate discount price automatically
+        $discountPrice = null;
+        if (!empty($validated['discount_percentage'])) {
+            $discountAmount = ($validated['regular_price'] * $validated['discount_percentage']) / 100;
+            $discountPrice = round($validated['regular_price'] - $discountAmount, 2);
+        }
+
+        // Handle 'null' string for category_id dropdown (Uncategorized)
+        $validated['category_id'] = $request->category_id === 'null' ? null : $validated['category_id'];
 
         $existingCount = $product->images()->count();
         $newImagesCount = $request->hasFile('images') ? count($request->file('images')) : 0;
@@ -94,15 +125,18 @@ class ProductController extends Controller
             return back()->withErrors(['images' => 'Total images (old + new) cannot exceed 4.'])->withInput();
         }
 
-        $product->update($request->only([
-            'name',
-            'description',
-            'price',
-            'category_id',
-            'stock_quantity',
-            'status',
-            'discount_price',
-        ]));
+        $product->update([
+            'name' => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'regular_price' => $validated['regular_price'],
+            'discount_percentage' => $validated['discount_percentage'] ?? null,
+            'discount_price' => $discountPrice,
+            'category_id' => $validated['category_id'],
+            'stock_quantity' => $validated['stock_quantity'],
+            'status' => $validated['status'],
+            'discount_start_date' => $validated['discount_start_date'] ?? null,
+            'discount_end_date' => $validated['discount_end_date'] ?? null,
+        ]);
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
