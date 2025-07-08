@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->decimal('discount_percentage', 5, 2)->nullable();
             $table->decimal('discount_price', 10, 2)->nullable();
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
+            // $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
             $table->integer('stock_quantity')->default(0);
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->date('discount_start_date')->nullable();

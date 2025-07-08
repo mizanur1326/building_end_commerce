@@ -13,7 +13,8 @@ class ProductImageController extends Controller
         Storage::disk('public')->delete($image->image);
         $productId = $image->product_id;
         $image->delete();
-
         return redirect()->route('products.edit', $productId)->with('success', 'Image deleted successfully!');
+
+
     }
 }

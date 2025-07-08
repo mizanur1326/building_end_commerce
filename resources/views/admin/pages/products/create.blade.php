@@ -97,15 +97,14 @@
 
                                 <div class="form-group">
                                     <label for="brand_id">Brand</label>
-                                    <select name="brand_id" class="form-control">
-                                        <option value="">Select Brand</option>
-                                        @foreach($brands as $brand)
-                                            <option value="{{ $brand->id }}" {{ old('brand_id', $product->brand_id ?? '') == $brand->id ? 'selected' : '' }}>
-                                                {{ $brand->name }}
-                                            </option>
+                                    <select name="brand_id" id="brand_id" class="form-control">
+                                        <option value="">-- Select Brand --</option>
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+
 
 
                                 <div class="form-group">

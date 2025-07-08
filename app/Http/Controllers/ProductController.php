@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->get();
+        $products = Product::with(['category', 'brand'])->get();
         return view('admin.pages.products.index', compact('products'));
     }
 
@@ -60,6 +60,7 @@ class ProductController extends Controller
             'discount_percentage' => $validated['discount_percentage'] ?? null,
             'discount_price' => $discountPrice,
             'category_id' => $validated['category_id'],
+            'brand_id' => $validated['brand_id'] ?? null,
             'stock_quantity' => $validated['stock_quantity'],
             'status' => $validated['status'],
             'discount_start_date' => $validated['discount_start_date'] ?? null,
@@ -91,7 +92,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('admin.pages.products.edit', compact('product', 'categories'));
+        $brands = Brand::all();
+        return view('admin.pages.products.edit', compact('product', 'categories', 'brands'));
     }
 
     public function update(Request $request, Product $product)
@@ -103,6 +105,7 @@ class ProductController extends Controller
             'discount_percentage' => 'nullable|numeric|min:0|max:100',
             // 'discount_price' => 'nullable|numeric|min:0', // no longer needed
             'category_id' => 'nullable|exists:categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
             'stock_quantity' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive',
             'discount_start_date' => 'nullable|date',
@@ -135,6 +138,7 @@ class ProductController extends Controller
             'discount_percentage' => $validated['discount_percentage'] ?? null,
             'discount_price' => $discountPrice,
             'category_id' => $validated['category_id'],
+            'brand_id' => $validated['brand_id'] ?? null,
             'stock_quantity' => $validated['stock_quantity'],
             'status' => $validated['status'],
             'discount_start_date' => $validated['discount_start_date'] ?? null,

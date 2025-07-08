@@ -16,6 +16,7 @@ class Product extends Model
         'discount_percentage',
         'discount_price',
         'category_id',
+        'brand_id',
         'stock_quantity',
         'status',
         'discount_start_date',
