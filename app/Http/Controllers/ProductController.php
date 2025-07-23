@@ -51,7 +51,11 @@ class ProductController extends Controller
         }
 
         // Handle 'null' string for category_id dropdown (Uncategorized)
-        $validated['category_id'] = $request->category_id === 'null' ? null : $validated['category_id'];
+        // $validated['category_id'] = $request->category_id === 'null' ? null : $validated['category_id'];
+
+
+        // $validated['category_id'] = $request->category_id === 'null' ? null : $validated['category_id'];
+        // $validated['brand_id'] = $request->brand_id === 'null' ? null : $validated['brand_id'];
 
         $product = Product::create([
             'name' => $validated['name'],
@@ -59,7 +63,7 @@ class ProductController extends Controller
             'regular_price' => $validated['regular_price'],
             'discount_percentage' => $validated['discount_percentage'] ?? null,
             'discount_price' => $discountPrice,
-            'category_id' => $validated['category_id'],
+            'category_id' => $validated['category_id'] ?? null,
             'brand_id' => $validated['brand_id'] ?? null,
             'stock_quantity' => $validated['stock_quantity'],
             'status' => $validated['status'],
@@ -83,6 +87,14 @@ class ProductController extends Controller
                     'image' => $path,
                 ]);
             }
+        }
+
+        if ($request->category_id === 'null') {
+            $validated['category_id'] = null;
+        }
+
+        if ($request->brand_id === 'null') {
+            $validated['brand_id'] = null;
         }
 
         return redirect()->route('products.index')
