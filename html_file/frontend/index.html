@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.9.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/74bd3f5679.js" crossorigin="anonymous"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Alata&family=Satisfy&display=swap"
+    rel="stylesheet" />
+  <title>My Ecommerce Project HTML</title>
+</head>
+
+<body class="alata">
+  <header>
+    <!-- Top Discount Bar -->
+    <div class="">
+      <p class="text-white bg-green-900 flex items-center justify-center p-2 text-xl">
+        <a href="https://www.figma.com/file/qIxNgsVwcD9xpOyBgjBAEz/E-commerce-Website-Template-(Freebie)-(Community)?type=design&node-id=20-2&mode=design&t=s5FNj7NxZ5Env5vB-0">Figma File Link: FIGMA FILE LINK</a>
+      </p>
+    </div>
+    <div class="">
+      <p class="text-white bg-black flex items-center justify-center p-2 text-sm satisfy">
+        Sign up and get 20% off to your first order. Sign Up Now
+      </p>
+    </div>
+    <!-- Nav Bar -->
+    <div>
+      <div class="navbar bg-base-100 px-8 lg:px-20">
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+              </svg>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <li><a href="/index.html">Home</a></li>
+              <li><a href="/category.html">Category</a></li>
+              <li><a href="/productDetails.html">Product Details</a></li>
+              <li><a href="/cart.html">Cart</a></li>
+            </ul>
+          </div>
+          <a href="#" class="text-2xl lg:text-3xl">ShopUp</a>
+        </div>
+
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1 lg:text-sm">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/category.html">Category</a></li>
+            <li><a href="/productDetails.html">Product Details</a></li>
+            <li><a href="/cart.html">Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="navbar-end">
+          <!-- <div class="relative flex items-center hidden lg:block">
+             <i class="fa fa-search absolute ml-3" aria-hidden="true"></i>
+            <input type="search" name="search" placeholder="Search Products" class="bg-gray-500 text-white pl-10 rounded-2xl border-none" id=""> 
+           </div> -->
+
+          <div class="lg:relative flex items-center">
+            <i class="fa fa-search lg:absolute ml-3 inset-y-0 left-0 flex items-center justify-center"
+              aria-hidden="true"></i>
+            <input type="search" name="search" placeholder="Search Products"
+              class="bg-slate-200 text-white pl-10 lg:pl-12 pr-4 py-2 rounded-2xl border-none hidden lg:block" id="">
+          </div>
+
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span class="badge badge-sm indicator-item">8</span>
+              </div>
+            </div>
+            <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
+              <div class="card-body">
+                <span class="font-bold text-lg">8 Items</span>
+                <span class="text-info">Subtotal: $999</span>
+                <div class="card-actions">
+                  <button class="btn btn-primary btn-block">View cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-circle">
+            <div class="indicator">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span class="badge badge-xs badge-primary indicator-item"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <!-- banner section -->
+    <div class="banner-container imageBg lg:flex justify-between px-8 lg:px-20 pt-10 lg:h-[450px]">
+      <div class="banner-text lg:w-7/12 h-auto">
+        <h1 class="font-bold text-3xl lg:text-6xl mb-2 lg:mb-6">FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+        <p class="mb-2 lg:mb-6 font-normal">Browse through our diverse range of meticulously crafted garments, designed
+          to bring out your individuality and cater to your sense of style.</p>
+        <button class="btn rounded-full w-52 text-white bg-black mb-6 hover:text-black">Shop Now</button>
+
+        <div class="grid grid-cols-2 lg:grid-cols-3 lg:divide-x-[3px]  divide-gray-400">
+          <div class="text-center ">
+            <h1 class="text-4xl mb-2 font-extrabold text-black">200+</h1>
+            <p class="text-sm">International Brands</p>
+          </div>
+
+          <div class="text-center">
+            <h1 class="text-4xl mb-2 font-extrabold text-black">2,000+</h1>
+            <p class="text-sm">High Quality Products</p>
+          </div>
+
+          <div class="col-span-2 text-center mt-4 lg:mt-0 lg:col-span-1">
+            <h1 class="text-4xl mb-2 font-extrabold text-black">30,000+</h1>
+            <p class="text-sm">Happy Customers</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-5/12">
+        <img src="assets/images/home/banner.png" class="h-[250px] lg:h-[410px] m-auto w-[70%]" alt="">
+      </div>
+    </div>
+    <!-- brand section -->
+    <!-- <div class="h-20 bg-black grid grid-cols-3 text-center px-8  lg:flex justify-around items-center lg:px-20">
+      <img src="assets/images/home/brand-name/versace.png" class="w-36 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/zara.png" class="w-36 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/gucci.png" class="w-36 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/prada.png" class="w-36 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/calvin-klein.png" class="w-36 h-[50%]" alt="">
+    </div> -->
+    
+    <div class="lg:hidden bg-black p-8">
+      <div class="flex justify-between items-center  mb-4">
+        <img src="assets/images/home/brand-name/versace.png" class="w-24 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/zara.png" class="w-24 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/gucci.png" class="w-24 h-[50%]" alt="">
+      </div>
+      <div class="flex justify-around items-center">
+        <img src="assets/images/home/brand-name/prada.png" class="w-24 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/calvin-klein.png" class="w-24 h-[50%]" alt="">
+      </div>
+    </div>
+    <div class="h-20 hidden  bg-black grid grid-cols-3 text-center px-8  lg:flex justify-around items-center lg:px-20">
+      <img src="assets/images/home/brand-name/versace.png" class="w-36 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/zara.png" class="w-36 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/gucci.png" class="w-36 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/prada.png" class="w-36 h-[50%]" alt="">
+      <img src="assets/images/home/brand-name/calvin-klein.png" class="w-36 h-[50%]" alt="">
+    </div>
+
+    
+
+    <!-- New Arrival Section -->
+    <div class="new-arrival-parent">
+      <div class="my-10">
+        <h2 class="text-5xl text-center">New Arrival</h2>
+      </div>
+
+      <!-- New Arrival Card -->
+      <div class="row grid grid-cols-2 px-20 lg:grid-cols-4 gap-10 lg:px-20 my-4">
+
+        <div class="card-container">
+          <div class="card bg-[#F0EEED] shadow-xl h-40 lg:h-80 flex items-center justify-center">
+            <img src="assets/images/home/products/new-arrivals/Tshirt.png" alt="Shoes" class="rounded-xl h-72" />
+          </div>
+          <div class="my-6">
+            <a href="#" class="font-normal text-lg text-gray-500 hover:text-black lg:font-bold mb-2">T-SHIRT WITH TAPE DETAILS!</a>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rating mb-2">
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+              </div>
+              <div>
+                <p>2/5</p>
+              </div>
+            </div>
+            <p class="font-bold">$120</p>
+          </div>
+        </div>
+
+        <div class="card-container">
+          <div class="card bg-[#F0EEED] shadow-xl h-40 lg:h-80  flex items-center justify-center">
+            <img src="assets/images/home/products/new-arrivals/Pant.png" alt="Shoes" class="rounded-xl h-72" />
+          </div>
+          <div class="my-6">
+            <a href="#" class="font-normal text-lg text-gray-500 hover:text-black lg:font-bold mb-2">SKINNY FIT JEANS</a>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rating mb-2">
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+              </div>
+              <div>
+                <p>3/5</p>
+              </div>
+            </div>
+            <p class="font-bold">$240 <del class="text-gray-600 ml-3">$190</del></p>
+          </div>
+        </div>
+
+
+        <div class="card-container">
+          <div class="card bg-[#F0EEED] shadow-xl h-40 lg:h-80 flex items-center justify-center">
+            <img src="assets/images/home/products/new-arrivals/Shirt.png" alt="Shoes" class="rounded-xl h-72" />
+          </div>
+          <div class="my-6">
+            <a href="#" class="font-normal text-lg text-gray-500 hover:text-black lg:font-bold mb-2">CHECKERED SHIRT</a>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rating mb-2">
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
+              </div>
+              <div>
+                <p>2/5</p>
+              </div>
+            </div>
+            <p class="font-bold">$180</p>
+          </div>
+        </div>
+
+        <div class="card-container">
+          <div class="card bg-[#F0EEED] shadow-xl h-40 lg:h-80  flex items-center justify-center">
+            <img src="assets/images/home/products/new-arrivals/Tshirt1.png" alt="Shoes" class="rounded-xl h-72" />
+          </div>
+          <div class="my-6">
+            <a href="#" class="font-normal text-lg text-gray-500 hover:text-black lg:font-bold mb-2">SLEEVE STRIPED T-SHIRT</a>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rating mb-2">
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
+              </div>
+              <div>
+                <p>4/5</p>
+              </div>
+            </div>
+            <p class="font-bold">$130 <del class="text-gray-600 ml-3">$110</del></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-2 text-center">
+        <button class="btn rounded-xl w-40">View All</button>
+      </div>
+    </div>
+
+
+    <hr class="border border-[#F0EEED] lg:px-20 w-10/12 mx-auto my-10">
+
+    <!-- Top Selling Section -->
+    <div class="top-selling-parent">
+      <div class="my-10">
+        <h2 class="text-5xl text-center">TOP SELLING</h2>
+      </div>
+
+      <!-- Top Selling Card -->
+      <div class="row grid grid-cols-2 px-20 lg:grid-cols-4 gap-10 lg:px-20 my-4">
+
+        <div class="card-container">
+          <div class="card bg-[#F0EEED] shadow-xl h-40 lg:h-80 flex items-center justify-center">
+            <img src="assets/images/home/products/top-selling/Shirt.png" alt="Shoes" class="rounded-xl h-72" />
+          </div>
+          <div class="my-6">
+            <a href="#" class="font-normal text-lg text-gray-500 hover:text-black lg:font-bold mb-2">VERTICAL STRIPED SHIRT</a>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rating mb-2">
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+              </div>
+              <div>
+                <p>2/5</p>
+              </div>
+            </div>
+            <p class="font-bold">$212</p>
+          </div>
+        </div>
+
+        <div class="card-container">
+          <div class="card bg-[#F0EEED] shadow-xl h-40 lg:h-80 flex items-center justify-center">
+            <img src="assets/images/home/products/top-selling/Tshirt.png" alt="Shoes" class="rounded-xl h-72" />
+          </div>
+          <div class="my-6">
+            <a href="#" class="font-normal text-lg text-gray-500 hover:text-black lg:font-bold mb-2">COURAGE GRAPHIC T-SHIRT</a>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rating mb-2">
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+              </div>
+              <div>
+                <p>3/5</p>
+              </div>
+            </div>
+            <p class="font-bold">$140 <del class="text-gray-600 ml-3">$190</del></p>
+          </div>
+        </div>
+
+
+        <div class="card-container">
+          <div class="card bg-[#F0EEED] shadow-xl h-40 lg:h-80 flex items-center justify-center">
+            <img src="assets/images/home/products/top-selling/Half-pant.png" alt="Shoes" class="rounded-xl h-72" />
+          </div>
+          <div class="my-6">
+            <a href="#" class="font-normal text-lg text-gray-500 hover:text-black lg:font-bold mb-2">LOOSE FIT BERMUDA SHORTS</a>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rating mb-2">
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-3" class="mask mask-star-2 bg-orange-400" />
+              </div>
+              <div>
+                <p>2/5</p>
+              </div>
+            </div>
+            <p class="font-bold">$180</p>
+          </div>
+        </div>
+
+        <div class="card-container">
+          <div class="card bg-[#F0EEED] shadow-xl h-40 lg:h-80 flex items-center justify-center">
+            <img src="assets/images/home/products/top-selling/Pant.png" alt="Shoes" class="rounded-xl h-72" />
+          </div>
+          <div class="my-6">
+            <a href="#" class="font-normal text-lg text-gray-500 hover:text-black lg:font-bold mb-2">FADED SKINNY JEANS</a>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rating mb-2">
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-4" class="mask mask-star-2 bg-orange-400" />
+              </div>
+              <div>
+                <p>4/5</p>
+              </div>
+            </div>
+            <p class="font-bold">$130 <del class="text-gray-600 ml-3">$110</del></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-2 text-center">
+        <button class="btn rounded-xl w-40">View All</button>
+      </div>
+    </div>
+
+    <!-- Browse by Dress Style -->
+    <div class="dress-style mt-8 lg:px-20 lg:py-8 bg-[#F0EEED] rounded-xl mx-auto w-11/12 ">
+      <div class="">
+        <h2 class="text-5xl font-extrabold text-center p-6">BROWSE BY DRESS STYLE</h2>
+      </div>
+      <div class="grid lg:grid-cols-12 h-80 lg:h-72 gap-4 overflow-hidden  p-3">
+        <div class="casual lg:col-span-5 bg-white bg-no-repeat bg-right rounded-xl"
+          style="background-image: url('assets/images/home/dress-style/CasualCrop.png')">
+          <p class="text-2xl p-8 font-bold">Casual</p>
+        </div>
+        <div class="formal lg:col-span-7 bg-white bg-right bg-no-repeat rounded-xl"
+          style="background-image: url('assets/images/home/dress-style/FormalCrop.png')">
+          <p class="text-2xl p-8 font-bold">Formal</p>
+        </div>
+      </div>
+      <div class="grid lg:grid-cols-12 h-80 lg:h-72 gap-4 overflow-hidden p-3">
+        <div class="casual lg:col-span-7 bg-white bg-no-repeat bg-left rounded-xl"
+          style="background-image: url('assets/images/home/dress-style/party.png')">
+          <p class="text-2xl p-8 font-bold">Party</p>
+        </div>
+        <div class="formal lg:col-span-5 bg-white bg-left bg-no-repeat rounded-xl"
+          style="background-image: url('assets/images/home/dress-style/gym.png')">
+          <p class="text-2xl p-8 font-bold">Gym</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Happy Customer -->
+    <div class="happy-customer  lg:my-10 my-8  lg:px-14 px-8 lg:mb-60  ">
+      <h2 class="text-3xl font-bold my-4">OUR HAPPY CUSTOMERS</h2>
+      <div class="card w-96 bg-green-50 shadow-xl">
+        <div class="card-body">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rating mb-2">
+              <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400"  />
+              <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+              <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400"  />
+              <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" />
+            </div>
+          </div>
+          <h2 class="card-title">John Doe</h2>
+          <p>"This footer design showcases a sleek and organized layout, featuring a visually appealing combination of elements and responsive design for an optimal user experience."</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Carousel will be here -->
+
+  </main>
+
+  <footer>
+    <div class="bg-[#F0EEED] mx-auto p-4 relative ">
+
+      <!-- Subscribe form -->
+      <div
+        class="lg:absolute w-11/12 mx-auto lg:top-[-40%] lg:left-1/2 lg:transform lg:-translate-x-1/2 bg-black p-10 rounded-xl text-white lg:flex lg:flex-row flex-col justify-between">
+        <div class="mb-8">
+          <p class="lg:text-5xl text-xl font-bold lg:w-[550px] text-center">STAY UPTO DATE ABOUT OUR LATEST OFFERS</p>
+        </div>
+        <div class="text-center">
+          <form action="" class="lg:w-[650px]">
+            <input type="email" name="email" id="" placeholder="Enter your Email"
+              class="h-10 w-11/12 lg:w-6/12 p-3 rounded-full mb-3"><br>
+            <input type="submit" value="Subscribe to Newsletter" class="bg-white text-black p-3 rounded-full">
+          </form>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="lg:relative z-10 mt-10 overflow-hidden">
+        <div class="lg:flex lg:flex-row gap-10 p-10 bg-[#F0EEED] text-base-content mx-auto">
+
+          <div>
+            <p class="text-4xl mb-4">ShopUp</p>
+            <div class="lg:w-60">
+              <p>We have clothes that suits your style and which you're proud to wear. From women to men.</p>
+              <div class="social">
+                <a href="#"><i class="fa-brands fa-twitter mr-3"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f mr-3"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram mr-3"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class=" footer grid grid-cols-2 lg:grid-cols-4 mt-7 ">
+            <div>
+              <h6 class="footer-title">Services</h6>
+              <a class="link link-hover">Branding</a>
+              <a class="link link-hover">Design</a>
+              <a class="link link-hover">Marketing</a>
+              <a class="link link-hover">Advertisement</a>
+            </div>
+            <div>
+              <h6 class="footer-title">Company</h6>
+              <a class="link link-hover">About us</a>
+              <a class="link link-hover">Contact</a>
+              <a class="link link-hover">Jobs</a>
+              <a class="link link-hover">Press kit</a>
+            </div>
+            <div>
+              <h6 class="footer-title">Company</h6>
+              <a class="link link-hover">About us</a>
+              <a class="link link-hover">Contact</a>
+              <a class="link link-hover">Jobs</a>
+              <a class="link link-hover">Press kit</a>
+            </div>
+            <div>
+              <h6 class="footer-title">Legal</h6>
+              <a class="link link-hover">Terms of use</a>
+              <a class="link link-hover">Privacy policy</a>
+              <a class="link link-hover">Cookie policy</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="border border-[#646362] lg:px-20 w-10/12 mx-auto my-10">
+
+      <div class="flex justify-between px-20">
+        <div>
+          <p>Shop.co © 2000-2023, All Rights Reserved</p> 
+        </div>       
+        <div>
+          <a href="#"><i class="fa-brands fa-cc-visa lg:text-4xl lg:mr-4"></i></a> 
+          <a href="#"><i class="fa-brands fa-cc-mastercard lg:text-4xl lg:mr-4"></i></a> 
+          <a href="#"><i class="fa-brands fa-cc-paypal lg:text-4xl lg:mr-4"></i></a> 
+          <a href="#"><i class="fa-brands fa-cc-apple-pay lg:text-4xl lg:mr-4"></i></a> 
+          <a href="#"><i class="fa-brands fa-google-pay lg:text-4xl"></i></a> 
+        </div>       
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -25,8 +25,12 @@ use Illuminate\Support\Facades\Route;
 // Route::delete('/product-images/{image}', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
 // Route::resource('brands', BrandController::class);
 
+// Frontend Routes
+Route::get('/', function () {
+    return view('frontend.pages.index');
+})->name('home');
 
-
+// Backend Routes
 Route::prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://cdn.jsdelivr.net/npm/daisyui@4.9.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://kit.fontawesome.com/74bd3f5679.js" crossorigin="anonymous"></script>
+      <!-- CSS -->
+      <link rel="stylesheet" href="style.css">
+      <!-- fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Alata&family=Satisfy&display=swap"
+         rel="stylesheet" />
+      <style>
+         .quantity-selector {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         background-color: #f0f0f0;
+         padding: 0.5rem 1rem;
+         border-radius: 9999px;
+         width: 120px;
+         }
+         .quantity-button {
+         cursor: pointer;
+         }
+         .quantity-input {
+         text-align: center;
+         width: 30px;
+         background: none;
+         border: none;
+         outline: none;
+         }
+      </style>
+      <title>Cart Page</title>
+   </head>
+   <body class="alata">
+      <header>
+         <!-- Top Discount Bar -->
+         <div class="">
+            <p class="text-white bg-green-900 flex items-center justify-center p-2 text-xl">
+               <a
+                  href="https://www.figma.com/file/qIxNgsVwcD9xpOyBgjBAEz/E-commerce-Website-Template-(Freebie)-(Community)?type=design&node-id=20-2&mode=design&t=s5FNj7NxZ5Env5vB-0">Figma
+               File Link: FIGMA FILE LINK</a>
+            </p>
+         </div>
+         <div class="">
+            <p class="text-white bg-black flex items-center justify-center p-2 text-sm satisfy">
+               Sign up and get 20% off to your first order. Sign Up Now
+            </p>
+         </div>
+         <!-- Nav Bar -->
+         <div>
+            <div class="navbar bg-base-100 px-8 lg:px-20">
+               <div class="navbar-start">
+                  <div class="dropdown">
+                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                     </div>
+                     <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/category.html">Category</a></li>
+                        <li><a href="/productDetails.html">Product Details</a></li>
+                        <li><a href="/cart.html">Cart</a></li>
+                     </ul>
+                  </div>
+                  <a href="#" class="text-2xl lg:text-3xl">ShopUp</a>
+               </div>
+               <div class="navbar-center hidden lg:flex">
+                  <ul class="menu menu-horizontal px-1 lg:text-sm">
+                     <li><a href="/index.html">Home</a></li>
+                     <li><a href="/category.html">Category</a></li>
+                     <li><a href="/productDetails.html">Product Details</a></li>
+                     <li><a href="/cart.html">Cart</a></li>
+                  </ul>
+               </div>
+               <div class="navbar-end">
+                  <!-- <div class="relative flex items-center hidden lg:block">
+                     <i class="fa fa-search absolute ml-3" aria-hidden="true"></i>
+                     <input type="search" name="search" placeholder="Search Products" class="bg-gray-500 text-white pl-10 rounded-2xl border-none" id=""> 
+                     </div> -->
+                  <div class="lg:relative flex items-center">
+                     <i class="fa fa-search lg:absolute ml-3 inset-y-0 left-0 flex items-center justify-center"
+                        aria-hidden="true"></i>
+                     <input type="search" name="search" placeholder="Search Products"
+                        class="bg-slate-200 text-white pl-10 lg:pl-12 pr-4 py-2 rounded-2xl border-none hidden lg:block"
+                        id="">
+                  </div>
+                  <div class="dropdown dropdown-end">
+                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="indicator">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                           </svg>
+                           <span class="badge badge-sm indicator-item">8</span>
+                        </div>
+                     </div>
+                     <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
+                        <div class="card-body">
+                           <span class="font-bold text-lg">8 Items</span>
+                           <span class="text-info">Subtotal: $999</span>
+                           <div class="card-actions">
+                              <button class="btn btn-primary btn-block">View cart</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <button class="btn btn-ghost btn-circle">
+                     <div class="indicator">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <span class="badge badge-xs badge-primary indicator-item"></span>
+                     </div>
+                  </button>
+               </div>
+            </div>
+         </div>
+      </header>
+      <main>
+         <!-- Breadcrumb -->
+         <div class="px-8 lg:px-20">
+            <ol class="list-reset flex">
+            <li><a href="#" class="text-gray-500 ">Home</a></li>
+            <li><span class="mx-2 text-gray-500">></span></li>
+            <li><a href="#" class="text-gray-500 ">Shop</a></li>
+            <li><span class="mx-2 text-gray-500">></span></li>
+            <li><a href="#" class="text-gray-500 ">Men</a></li>
+            <li><span class="mx-2 text-gray-500">></span></li>
+            <li class="text-black">T-shirts</li>
+         </div>
+         <!-- Cart -->
+         <div class="mt-6">
+            <h1 class="text-xl lg:text-2xl font-extrabold px-10 lg:px-20 text-black">YOUR CART</h1>
+            <div class="row grid lg:grid lg:grid-cols-2 gap-5 px-5 lg:px-20 py-10 lg:mb-52 w-full">
+               <!-- Product info div -->
+               <div class="border-2 border-gray-200 rounded-2xl p-5">
+                  <!-- Product Card -->
+                  <div class="flex flex-row gap-5">
+                     <!-- Product image -->
+                     <div class="bg-[#F0EEED] p-2 mb-4 lg:w-32 lg:h-32 rounded-xl grid">
+                        <img src="assets/images/cart/1.png" class="h-28 lg:h-28 lg:w-40" alt="">
+                     </div>
+                     <div class="w-full">
+                        <!-- Product Name & delete button -->
+                        <div class="flex justify-between">
+                           <div>
+                              <a href="#">Gradient Graphic T-shirt</a>
+                           </div>
+                           <div>
+                              <button type="reset"><i class="fa-solid fa-trash"
+                                 style="color: #ff0000;"></i></button>
+                           </div>
+                        </div>
+                        <div class="mt-2">
+                           <p class="text-xs">Size : XXL</p>
+                           <p class="text-xs">Color : White</p>
+                        </div>
+                        <div class="flex justify-between mt-5">
+                           <div class="">
+                              <p class="text-xl">$240</p>
+                           </div>
+                           <div class="flex items-center justify-center bg-gray-100 rounded-2xl">
+                              <div class="quantity-selector">
+                                 <button class="quantity-button text-lg" onclick="decreaseQuantity()">-</button>
+                                 <input type="text" class="quantity-input" id="quantity" value="1" readonly>
+                                 <button class="quantity-button text-lg" onclick="increaseQuantity()">+</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <hr class="my-3">
+                  <!-- Product Card -->
+                  <div class="flex flex-row gap-5">
+                     <!-- Product image -->
+                     <div class="bg-[#F0EEED] p-2 mb-4 lg:w-32 lg:h-32 rounded-xl grid">
+                        <img src="assets/images/cart/1.png" class="h-28 lg:h-28 lg:w-40" alt="">
+                     </div>
+                     <div class="w-full">
+                        <!-- Product Name & delete button -->
+                        <div class="flex justify-between">
+                           <div>
+                              <a href="#">Gradient Graphic T-shirt</a>
+                           </div>
+                           <div>
+                              <button type="reset"><i class="fa-solid fa-trash"
+                                 style="color: #ff0000;"></i></button>
+                           </div>
+                        </div>
+                        <div class="mt-2">
+                           <p class="text-xs">Size : XXL</p>
+                           <p class="text-xs">Color : White</p>
+                        </div>
+                        <div class="flex justify-between mt-5">
+                           <div class="">
+                              <p class="text-xl">$240</p>
+                           </div>
+                           <div class="flex items-center justify-center bg-gray-100 rounded-2xl">
+                              <div class="quantity-selector">
+                                 <button class="quantity-button text-lg" onclick="decreaseQuantity()">-</button>
+                                 <input type="text" class="quantity-input" id="quantity" value="1" readonly>
+                                 <button class="quantity-button text-lg" onclick="increaseQuantity()">+</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Product price summary div -->
+               <div class="border-2 border-gray-200 rounded-2xl p-5">
+                  <h1 class="text-xs lg:text-xl font-extrabold text-black mb-5">Order summary</h1>
+                  <div>
+                     <div class="flex justify-between px-5 mb-3">
+                        <p>Subtotal</p>
+                        <p>$565</p>
+                     </div>
+                     <div class="flex justify-between px-5 mb-3">
+                        <p>Discount (-20%)</p>
+                        <p class="text-red-500">-$113</p>
+                     </div>
+                     <div class="flex justify-between px-5">
+                        <p>Delivery Fee</p>
+                        <p>$15</p>
+                     </div>
+                     <hr class="my-3">
+                     <div class="flex justify-between px-5 mb-7">
+                        <p class="font-extrabold">Total</p>
+                        <p class="font-extrabold">$467</p>
+                     </div>
+                     <div>
+                        <form class="w-full flex gap-3 mb-4">
+                           <input type="text" placeholder="Add Promo Code"
+                              class="bg-gray-200  text-xs p-2 rounded-full text-gray-600 w-9/12">
+                           <button class="bg-gray-900 text-white p-2 rounded-full text-xs flex-grow">Apply</button>
+                        </form>
+                        <!-- Go to Checkout Button -->
+                        <button class="bg-black text-white px-6 py-2 rounded-full flex items-center w-full flex justify-center">
+                           <span>Go to Checkout</span>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M9 5l7 7-7 7" />
+                           </svg>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Footer -->
+         <footer>
+            <div class="bg-[#F0EEED] mx-auto p-4 relative ">
+               <!-- Subscribe form -->
+               <div
+                  class="lg:absolute w-11/12 mx-auto lg:top-[-40%] lg:left-1/2 lg:transform lg:-translate-x-1/2 bg-black p-10 rounded-xl text-white lg:flex lg:flex-row flex-col justify-between">
+                  <div class="mb-8">
+                     <p class="lg:text-5xl text-xl font-bold lg:w-[550px] text-center">STAY UPTO DATE ABOUT OUR
+                        LATEST OFFERS
+                     </p>
+                  </div>
+                  <div class="text-center">
+                     <form action="" class="lg:w-[650px]">
+                        <input type="email" name="email" id="" placeholder="Enter your Email"
+                           class="h-10 w-11/12 lg:w-6/12 p-3 rounded-full mb-3"><br>
+                        <input type="submit" value="Subscribe to Newsletter"
+                           class="bg-white text-black p-3 rounded-full">
+                     </form>
+                  </div>
+               </div>
+               <!-- Content -->
+               <div class="lg:relative z-10 mt-10 overflow-hidden">
+                  <div class="lg:flex lg:flex-row gap-10 p-10 bg-[#F0EEED] text-base-content mx-auto">
+                     <div>
+                        <p class="text-4xl mb-4">ShopUp</p>
+                        <div class="lg:w-60">
+                           <p>We have clothes that suits your style and which you're proud to wear. From women to
+                              men.
+                           </p>
+                           <div class="social">
+                              <a href="#"><i class="fa-brands fa-twitter mr-3"></i></a>
+                              <a href="#"><i class="fa-brands fa-facebook-f mr-3"></i></a>
+                              <a href="#"><i class="fa-brands fa-instagram mr-3"></i></a>
+                              <a href="#"><i class="fa-brands fa-github"></i></a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class=" footer grid grid-cols-2 lg:grid-cols-4 mt-7 ">
+                        <div>
+                           <h6 class="footer-title">Services</h6>
+                           <a class="link link-hover">Branding</a>
+                           <a class="link link-hover">Design</a>
+                           <a class="link link-hover">Marketing</a>
+                           <a class="link link-hover">Advertisement</a>
+                        </div>
+                        <div>
+                           <h6 class="footer-title">Company</h6>
+                           <a class="link link-hover">About us</a>
+                           <a class="link link-hover">Contact</a>
+                           <a class="link link-hover">Jobs</a>
+                           <a class="link link-hover">Press kit</a>
+                        </div>
+                        <div>
+                           <h6 class="footer-title">Company</h6>
+                           <a class="link link-hover">About us</a>
+                           <a class="link link-hover">Contact</a>
+                           <a class="link link-hover">Jobs</a>
+                           <a class="link link-hover">Press kit</a>
+                        </div>
+                        <div>
+                           <h6 class="footer-title">Legal</h6>
+                           <a class="link link-hover">Terms of use</a>
+                           <a class="link link-hover">Privacy policy</a>
+                           <a class="link link-hover">Cookie policy</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <hr class="border border-[#646362] lg:px-20 w-10/12 mx-auto my-10">
+               <div class="flex justify-between px-20">
+                  <div>
+                     <p>Shop.co © 2000-2023, All Rights Reserved</p>
+                  </div>
+                  <div>
+                     <a href="#"><i class="fa-brands fa-cc-visa lg:text-4xl lg:mr-4"></i></a>
+                     <a href="#"><i class="fa-brands fa-cc-mastercard lg:text-4xl lg:mr-4"></i></a>
+                     <a href="#"><i class="fa-brands fa-cc-paypal lg:text-4xl lg:mr-4"></i></a>
+                     <a href="#"><i class="fa-brands fa-cc-apple-pay lg:text-4xl lg:mr-4"></i></a>
+                     <a href="#"><i class="fa-brands fa-google-pay lg:text-4xl"></i></a>
+                  </div>
+               </div>
+            </div>
+         </footer>
+      </main>
+   </body>
+   <script>
+      function decreaseQuantity() {
+          var quantityInput = document.getElementById('quantity');
+          var quantity = parseInt(quantityInput.value);
+          if (quantity > 1) {
+              quantityInput.value = quantity - 1;
+          }
+      }
+      
+      function increaseQuantity() {
+          var quantityInput = document.getElementById('quantity');
+          var quantity = parseInt(quantityInput.value);
+          quantityInput.value = quantity + 1;
+      }
+   </script>
+</html>
