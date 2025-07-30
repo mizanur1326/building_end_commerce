@@ -16,6 +16,7 @@
 </head>
 
 <body class="alata">
+    @include('frontend.partials.header')
 
     <main>
         @yield('home')

@@ -37,7 +37,17 @@
                     @else
                     <span class="text-red-600">Out of Stock</span>
                     @endif
-                </p>
+                </p> 
+                <!-- Add to Cart button placeholder -->
+                @if ($product->stock_quantity > 0)
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Add to Cart
+                    </button>
+                @else
+                    <button class="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed" disabled>
+                        Out of Stock
+                    </button>
+                @endif
             </div>
         </div>
         @empty

@@ -18,8 +18,7 @@
                         </div>
                         <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             <li><a href="{{ route( 'home') }}">Home</a></li>
-                            <li><a href="/category.html">Category</a></li>
-                            <li><a href="/productDetails.html">Product Details</a></li>
+                            <li><a href="{{ route('products') }}">Products</a></li>
                             <li><a href="/cart.html">Cart</a></li>
                         </ul>
                     </div>
@@ -28,9 +27,8 @@
 
                 <div class="navbar-center hidden lg:flex">
                     <ul class="menu menu-horizontal px-1 lg:text-sm">
-                        <li><a href="/index.html">Home</a></li>
-                        <li><a href="/category.html">Category</a></li>
-                        <li><a href="/productDetails.html">Product Details</a></li>
+                        <li><a href="{{ route( 'home') }}">Home</a></li>
+                        <li><a href="{{ route('products') }}">Products</a></li>
                         <li><a href="/cart.html">Cart</a></li>
                     </ul>
                 </div>

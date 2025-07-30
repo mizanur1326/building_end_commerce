@@ -187,7 +187,6 @@ class ProductController extends Controller
             ->with('success', 'Product deleted successfully!');
     }
 
-
     public function show(Product $product)
     {
         return view('admin.pages.products.show', compact('product'));
