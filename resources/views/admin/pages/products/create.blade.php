@@ -40,6 +40,10 @@
                                 <input class="form-control" type="text" name="name" required
                                     placeholder="Enter product name" value="{{ old('name') }}">
                             </div>
+                            <div class="form-group">
+                                <label for="slug">Slug (auto-generated)</label>
+                                <input type="text" id="slug" class="form-control" readonly>
+                            </div>
 
                             <div class="form-group">
                                 <label for="description">Description</label>
@@ -217,6 +221,14 @@
     // Initialize on page load
     window.addEventListener('DOMContentLoaded', () => {
         calculateDiscountPrice();
+    });
+
+    document.querySelector('input[name="name"]').addEventListener('input', function() {
+        const slug = this.value.toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .trim()
+            .replace(/\s+/g, '-');
+        document.getElementById('slug').value = slug;
     });
 </script>
 

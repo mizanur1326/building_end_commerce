@@ -23,6 +23,46 @@
                         <div class="ibox-title">Edit Product Form</div>
                     </div>
                     <div class="ibox-body">
+                        {{-- Show success/error messages --}}
+                        @if(session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @endif
+
+                        {{-- Existing Images with delete buttons --}}
+                        <div class="form-group">
+                            <label>Existing Images</label>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                @foreach ($product->images as $img)
+                                    <div style="position: relative; width: 100px; height: 100px; border: 1px solid #ddd; border-radius: 5px; overflow: hidden;">
+                                        <img src="{{ asset('storage/' . $img->image) }}" alt="Product Image"
+                                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                                        <form method="POST" action="{{ route('product-images.destroy', $img->id) }}"
+                                            style="position: absolute; top: 5px; right: 5px;"
+                                            onsubmit="return confirm('Are you sure you want to delete this image?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" style="
+                                                background: rgba(255, 0, 0, 0.8);
+                                                border: none;
+                                                color: white;
+                                                font-weight: bold;
+                                                border-radius: 50%;
+                                                width: 22px;
+                                                height: 22px;
+                                                line-height: 20px;
+                                                cursor: pointer;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                            " title="Delete Image">&times;</button>
+                                        </form>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                         <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -109,11 +149,6 @@
                                 <label>Product Images (You can re-upload or leave empty)</label>
                                 <input type="file" class="form-control-file" name="images[]" multiple accept="image/*"
                                     onchange="if(this.files.length > 4){ alert('You can upload max 4 images'); this.value=''; }">
-                                <div class="mt-3">
-                                    @foreach ($product->images as $image)
-                                        <img src="{{ asset('storage/' . $image->image) }}" alt="Product Image" class="mr-2" width="80" height="80">
-                                    @endforeach
-                                </div>
                             </div>
 
                             <div class="form-group mt-3">

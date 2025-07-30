@@ -186,4 +186,10 @@ class ProductController extends Controller
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully!');
     }
+
+
+    public function show(Product $product)
+    {
+        return view('admin.pages.products.show', compact('product'));
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -11,6 +12,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'regular_price',
         'discount_percentage',
@@ -45,5 +47,32 @@ class Product extends Model
     public function getMainImage()
     {
         return $this->images->first()?->image ?? 'images/no-image.jpg';
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($product) {
+            $product->slug = Str::slug($product->name);
+
+            // Optional: Make sure slug is unique
+            $originalSlug = $product->slug;
+            $count = 1;
+            while (Product::where('slug', $product->slug)->exists()) {
+                $product->slug = $originalSlug . '-' . $count++;
+            }
+        });
+
+        static::updating(function ($product) {
+            if ($product->isDirty('name')) {
+                $product->slug = Str::slug($product->name);
+
+                // Make sure updated slug is unique
+                $originalSlug = $product->slug;
+                $count = 1;
+                while (Product::where('slug', $product->slug)->where('id', '!=', $product->id)->exists()) {
+                    $product->slug = $originalSlug . '-' . $count++;
+                }
+            }
+        });
     }
 }

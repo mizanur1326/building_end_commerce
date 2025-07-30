@@ -16,4 +16,10 @@ class ProductFrontendController extends Controller
 
         return view('frontend.pages.products.index', compact('products'));
     }
+
+    public function show($slug)
+    {
+        $product = Product::where('slug', $slug)->firstOrFail();
+        return view('frontend.pages.products.show', compact('product'));
+    }
 }

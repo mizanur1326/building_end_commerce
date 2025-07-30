@@ -32,6 +32,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/products', [ProductFrontendController::class, 'index'])->name('frontend.products.index');
+Route::get('/products/{slug}', [ProductFrontendController::class, 'show'])->name('frontend.products.show');
+// Route::resource('products', ProductController::class);
+
 
 // Backend Routes
 Route::prefix('admin')->group(function () {
@@ -44,5 +47,6 @@ Route::prefix('admin')->group(function () {
     Route::delete('/product-images/{image}', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
 
     Route::resource('brands', BrandController::class);
+
 });
 
