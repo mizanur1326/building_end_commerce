@@ -6,6 +6,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Frontend\ProductFrontendController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('frontend.pages.index');
 })->name('home');
+
+Route::get('/products', [ProductFrontendController::class, 'index'])->name('frontend.products.index');
 
 // Backend Routes
 Route::prefix('admin')->group(function () {

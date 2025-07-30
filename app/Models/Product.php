@@ -23,17 +23,11 @@ class Product extends Model
         'discount_end_date',
     ];
 
-
     public function category()
     {
         return $this->belongsTo(Category::class)->withDefault([
             'name' => 'Uncategorized',
         ]);
-    }
-
-    public function images()
-    {
-        return $this->hasMany(ProductImage::class);
     }
 
     public function brand()
@@ -43,4 +37,13 @@ class Product extends Model
         ]);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function getMainImage()
+    {
+        return $this->images->first()?->image ?? 'images/no-image.jpg';
+    }
 }
