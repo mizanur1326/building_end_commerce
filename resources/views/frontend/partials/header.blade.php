@@ -1,10 +1,11 @@
 @php
 $cart = session('cart', []);
-$cartCount = collect($cart)->sum('quantity');
+$cartCount = count($cart); // ✅ number of distinct items
 $cartTotal = collect($cart)->sum(function($item) {
 return $item['price'] * $item['quantity'];
 });
 @endphp
+
 <header>
     <!-- Top Discount Bar -->
     <div class="">
@@ -64,57 +65,72 @@ return $item['price'] * $item['quantity'];
                             <span class="badge badge-sm indicator-item">{{ $cartCount }}</span>
                         </div>
                     </div>
-                    <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-80 bg-base-100 shadow">
+                    <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content  bg-base-100 shadow">
                         <div class="card-body">
-                            <span class="font-bold text-lg">{{ $cartCount }} Item(s)</span>
+                            <span class="font-bold text-lg">You have {{ $cartCount }} Item's in Cart</span>
 
                             @if ($cartCount > 0)
-                            <div class="divide-y divide-gray-200 max-h-60 overflow-y-auto">
-                                @foreach ($cart as $id => $item)
-                                <div class="flex items-center py-2 space-x-3">
-                                    <img src="{{ asset('storage/' . $item['image']) }}" class="w-12 h-12 object-cover rounded" alt="{{ $item['name'] }}">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                                    <thead class="bg-gray-100 text-left text-gray-700">
+                                        <tr>
+                                            <th class="px-4 py-2">Image</th>
+                                            <th class="px-4 py-2">Product</th>
+                                            <th class="px-4 py-2">Quantity</th>
+                                            <th class="px-4 py-2">Unit Price</th>
+                                            <th class="px-4 py-2">Total</th>
+                                            <th class="px-4 py-2">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @foreach ($cart as $id => $item)
+                                        <tr>
+                                            <td class="px-4 py-2">
+                                                <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-12 h-12 object-cover rounded">
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                <p class="font-medium">{{ $item['name'] }}</p>
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                <div class="flex items-center space-x-2">
+                                                    <button
+                                                        class="qty-btn px-2 py-1 bg-gray-200 rounded"
+                                                        data-product-id="{{ $id }}"
+                                                        data-action="decrement"
+                                                        type="button">-</button>
 
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium truncate">{{ $item['name'] }}</p>
+                                                    <input
+                                                        type="text"
+                                                        readonly
+                                                        value="{{ $item['quantity'] }}"
+                                                        class="w-10 text-center border rounded"
+                                                        id="qty-input-{{ $id }}">
 
-                                        <div class="flex items-center space-x-2 mt-1">
-                                            <!-- Decrement Button -->
-                                            <button
-                                                class="qty-btn px-2 py-1 bg-gray-200 rounded"
-                                                data-product-id="{{ $id }}"
-                                                data-action="decrement"
-                                                type="button">-</button>
-
-                                            <!-- Quantity display -->
-                                            <input
-                                                type="text"
-                                                readonly
-                                                value="{{ $item['quantity'] }}"
-                                                class="w-10 text-center border rounded"
-                                                id="qty-input-{{ $id }}">
-
-                                            <!-- Increment Button -->
-                                            <button
-                                                class="qty-btn px-2 py-1 bg-gray-200 rounded"
-                                                data-product-id="{{ $id }}"
-                                                data-action="increment"
-                                                type="button">+</button>
-                                            <!-- Unit price display -->
-                                            <p class="text-xs text-gray-600 ml-4">
-                                                X <span id="unit-price-{{ $id }}">{{ number_format($item['price'], 2) }}</span>
-                                            </p>
-
-                                            <!-- Price display -->
-                                            <p class="text-xs text-gray-600 ml-4">
+                                                    <button
+                                                        class="qty-btn px-2 py-1 bg-gray-200 rounded"
+                                                        data-product-id="{{ $id }}"
+                                                        data-action="increment"
+                                                        type="button">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                ৳<span id="unit-price-{{ $id }}">{{ number_format($item['price'], 2) }}</span>
+                                            </td>
+                                            <td class="px-4 py-2">
                                                 ৳<span id="price-{{ $id }}">{{ $item['price'] * $item['quantity'] }}</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-
+                                            </td>
+                                            <td class="px-4 py-2">
+                                                <button
+                                                    class="remove-btn text-red-600 hover:text-red-800"
+                                                    data-product-id="{{ $id }}">
+                                                    Remove
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-
                             <div class="mt-3">
                                 <p class="font-semibold">Subtotal: ৳<span id="cart-subtotal">{{ $cartTotal }}</span></p>
                                 <a href="{{ route('cart.index') }}" class="btn btn-primary btn-block mt-2">View Cart</a>
@@ -141,50 +157,28 @@ return $item['price'] * $item['quantity'];
 </header>
 
 <script>
+    const csrfToken = '{{ csrf_token() }}';
+
+    // Handle Increment/Decrement Quantity
     document.querySelectorAll('.qty-btn').forEach(button => {
         button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-product-id');
-            const action = this.getAttribute('data-action');
-
-            // Get current quantity from input field
+            const productId = this.dataset.productId;
+            const action = this.dataset.action;
             const qtyInput = document.getElementById(`qty-input-${productId}`);
             const currentQty = parseInt(qtyInput.value);
 
-            // If decrement and quantity is 1, confirm removal
+            // If trying to decrement and quantity is 1, confirm removal
             if (action === 'decrement' && currentQty === 1) {
-                if (!confirm('This will remove the item from your cart. Are you sure?')) {
-                    return; // user cancelled, stop further action
-                }
+                if (!confirm('This will remove the item from your cart. Are you sure?')) return;
 
-                // Send remove request
-                fetch(`{{ url('/cart/remove') }}/${productId}`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            alert(data.error);
-                            return;
-                        }
-                        // Optionally update UI or reload page
-                        // For now, reload to reflect cart changes:
-                        location.reload();
-                    })
-                    .catch(err => console.error(err));
-
-                return; // stop normal decrement fetch below
+                return removeFromCart(productId); // Call the remove function
             }
 
-            // Normal increment/decrement fetch
+            // Update quantity via AJAX
             fetch(`{{ url('/cart/update-quantity') }}/${productId}`, {
                     method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-CSRF-TOKEN': csrfToken,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
@@ -194,18 +188,43 @@ return $item['price'] * $item['quantity'];
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.error) {
-                        alert(data.error);
-                        return;
-                    }
-                    // Update quantity input
+                    if (data.error) return alert(data.error);
+
+                    // Update quantity, item total price, and subtotal
                     qtyInput.value = data.quantity;
-                    // Update price display for this item
                     document.getElementById(`price-${productId}`).innerText = data.itemTotalPrice;
-                    // Update subtotal
                     document.getElementById('cart-subtotal').innerText = data.cartTotal;
                 })
-                .catch(err => console.error(err));
+                .catch(error => console.error('Quantity update failed:', error));
         });
     });
+
+    // Handle Manual Remove Button Click
+    document.querySelectorAll('.remove-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            if (!confirm('Are you sure you want to remove this item from your cart?')) return;
+
+            removeFromCart(productId);
+        });
+    });
+
+    // Reusable Remove Function
+    function removeFromCart(productId) {
+        fetch(`{{ url('/cart/remove') }}/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) return alert(data.error);
+
+                location.reload(); // Reload the page to reflect removal
+            })
+            .catch(error => console.error('Remove failed:', error));
+    }
 </script>
