@@ -42,11 +42,6 @@ return $item['price'] * $item['quantity'];
             </div>
 
             <div class="navbar-end">
-                <!-- <div class="relative flex items-center hidden lg:block">
-             <i class="fa fa-search absolute ml-3" aria-hidden="true"></i>
-            <input type="search" name="search" placeholder="Search Products" class="bg-gray-500 text-white pl-10 rounded-2xl border-none" id=""> 
-           </div> -->
-
                 <div class="lg:relative flex items-center">
                     <i class="fa fa-search lg:absolute ml-3 inset-y-0 left-0 flex items-center justify-center"
                         aria-hidden="true"></i>
@@ -156,62 +151,54 @@ return $item['price'] * $item['quantity'];
     </div>
 </header>
 
-<script>
-    const csrfToken = '{{ csrf_token() }}';
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const csrfToken = '{{ csrf_token() }}';
 
-    // Handle Increment/Decrement Quantity
-    document.querySelectorAll('.qty-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.dataset.productId;
-            const action = this.dataset.action;
-            const qtyInput = document.getElementById(`qty-input-${productId}`);
-            const currentQty = parseInt(qtyInput.value);
+        // Handle Increment/Decrement Quantity
+        document.querySelectorAll('.qty-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.dataset.productId;
+                const action = this.dataset.action;
+                const qtyInput = document.getElementById(`qty-input-${productId}`);
+                const currentQty = parseInt(qtyInput.value);
 
-            // If trying to decrement and quantity is 1, confirm removal
-            if (action === 'decrement' && currentQty === 1) {
-                if (!confirm('This will remove the item from your cart. Are you sure?')) return;
+                if (action === 'decrement' && currentQty === 1) {
+                    if (!confirm('This will remove the item from your cart. Are you sure?')) return;
+                    return removeFromCart(productId);
+                }
 
-                return removeFromCart(productId); // Call the remove function
-            }
-
-            // Update quantity via AJAX
-            fetch(`{{ url('/cart/update-quantity') }}/${productId}`, {
+                fetch(`{{ url('/cart/update-quantity') }}/${productId}`, {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': csrfToken,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
-                    body: JSON.stringify({
-                        action
-                    })
+                    body: JSON.stringify({ action })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) return alert(data.error);
-
-                    // Update quantity, item total price, and subtotal
                     qtyInput.value = data.quantity;
                     document.getElementById(`price-${productId}`).innerText = data.itemTotalPrice;
                     document.getElementById('cart-subtotal').innerText = data.cartTotal;
                 })
                 .catch(error => console.error('Quantity update failed:', error));
+            });
         });
-    });
 
-    // Handle Manual Remove Button Click
-    document.querySelectorAll('.remove-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.dataset.productId;
-            if (!confirm('Are you sure you want to remove this item from your cart?')) return;
-
-            removeFromCart(productId);
+        // Handle Remove
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.dataset.productId;
+                if (!confirm('Are you sure you want to remove this item from your cart?')) return;
+                removeFromCart(productId);
+            });
         });
-    });
 
-    // Reusable Remove Function
-    function removeFromCart(productId) {
-        fetch(`{{ url('/cart/remove') }}/${productId}`, {
+        function removeFromCart(productId) {
+            fetch(`{{ url('/cart/remove') }}/${productId}`, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
@@ -222,9 +209,10 @@ return $item['price'] * $item['quantity'];
             .then(response => response.json())
             .then(data => {
                 if (data.error) return alert(data.error);
-
-                location.reload(); // Reload the page to reflect removal
+                location.reload();
             })
             .catch(error => console.error('Remove failed:', error));
-    }
-</script>
+        }
+    });
+</script> -->
+
