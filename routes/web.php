@@ -7,6 +7,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductFrontendController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
@@ -43,3 +44,7 @@ Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.a
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/remove/{productId}', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/update-quantity/{productId}', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+
+// Checkout Routes
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.page');
+Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');

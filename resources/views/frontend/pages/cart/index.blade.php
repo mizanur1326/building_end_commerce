@@ -74,9 +74,18 @@
                 <td colspan="4" class="px-4 py-3 text-right font-bold">Subtotal</td>
                 <td colspan="2" class="px-4 py-3 font-bold" id="cart-subtotal">৳{{ number_format($total, 2) }}</td>
             </tr>
-        </tbody>
-    </table>
+            <tr>
+                <td colspan="6" class="px-4 py-4 text-right">
+                    <a href="{{ route('checkout.page') }}"
+                        class="inline-block bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
+                        Proceed to Checkout
+                    </a>
+                </td>
+            </tr>
 
+        </tbody>
+
+    </table>
     @else
     <p>Your cart is empty.</p>
     @endif
